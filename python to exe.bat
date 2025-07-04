@@ -1,0 +1,1 @@
+pyinstaller --onefile script_excel_credentials.py
