@@ -1,11 +1,3 @@
-# SheetGate version_0.0.2
-
-## Changelog
-
-- Added error handling in update script
-
----
-
 # 🔐 Excel User-Based Sheet Access System
 
 This project provides a secure, macro-enabled Excel solution that restricts access to sheets based on user credentials. It now also includes Python scripts to automate the creation and update of workbook versions while preserving security macros.
@@ -49,13 +41,17 @@ This project provides a secure, macro-enabled Excel solution that restricts acce
 ### 🔸 Python Scripts
 
 #### `script_excel_credentials_START.py`
+
 Use when creating a new secured `.xlsm`:
+
 1. Provide a `.xlsm` template with macros.
 2. Provide a `.xlsx` file with user-specific sheets.
 3. The script copies sheets into a secured `.xlsm` output.
 
 #### `script_excel_credentials_UPDATE.py`
+
 Use when updating an existing `.xlsm` with a new template:
+
 1. Backs up the old `.xlsm` as `_old.xlsm`
 2. Copies sheets from the backup into the new `.xlsm`
 3. Avoids overwriting existing macro/template sheets
@@ -72,3 +68,19 @@ python script_excel_credentials_START.py
 # Input:
 #   > Path to macro-enabled template (.xlsm)
 #   > Path to user sheet source (.xlsx)
+```
+
+---
+
+## SheetGate version 0.0.3
+
+### Changelog
+
+#### v0.0.3
+
+- Changed validity check in START and UPDATE.
+- Made exe files from them for release v0.0.3
+
+#### v0.0.2
+
+- Added error handling in update script
