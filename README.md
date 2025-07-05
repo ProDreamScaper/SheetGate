@@ -1,3 +1,11 @@
+# SheetGate version_0.0.2
+
+## Changelog
+
+- Added error handling in update script
+
+---
+
 # 🔐 Excel User-Based Sheet Access System
 
 This project provides a secure, macro-enabled Excel solution that restricts access to sheets based on user credentials. It now also includes Python scripts to automate the creation and update of workbook versions while preserving security macros.

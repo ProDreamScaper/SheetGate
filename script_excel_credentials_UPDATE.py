@@ -28,6 +28,7 @@ def main():
     print(f"\n✅ Copied template to: {output_file}")
 
     tempalate_sheet_names = []
+    error = 0
 
     app = xw.App(visible=False)
     try:
@@ -44,26 +45,34 @@ def main():
 
         # Copy each sheet from xlsm_source to new_xlsm
         for sheet in wb_source_xlsm.sheets:
-            if sheet.name not in tempalate_sheet_names:
-                print(f"📄 Copying sheet: {sheet.name}")
-                sheet.api.Copy(Before=wb_xlsm.sheets[0].api)
-            else:
-                print(f"📄 Modifying sheet: {sheet.name}")
-
+            try:
+                if sheet.name not in tempalate_sheet_names:
+                    print(f"📄 Copying sheet: {sheet.name}")
+                    sheet.api.Copy(Before=wb_xlsm.sheets[0].api)
+                else:
+                    print(f"📄 Modifying sheet: {sheet.name}")
+            except Exception as e_sheet:
+                error = 1
+                print(f"❌ Error. Failed to copy sheet {sheet.name!r}: {e_sheet} \nℹ️ Don't forget admin admin credentials for both files.\n")
         # Save and close
-       
-        wb_xlsm.save()
-        print(f"\n✅ Done! Final XLSM with imported sheets saved as:\n{output_file}")
+        if error == 0:
+            wb_xlsm.save()
+            print(f"\n✅ Done! Final XLSM with imported sheets saved as:\n{output_file}")
     
-    except:
-        os.remove(output_file)
-        os.rename(backup_source_xlsm, source_xlsm_path)
-        print(f"\n❌ Error. Don't forget admin admin credentials for both files. Returned files back.")
+    except Exception as exception_info_1:
+        error = 1
+        print(f"\n❌ Error: {exception_info_1}")
 
     finally:
         wb_source_xlsm.close()
         wb_xlsm.close()
         app.quit()
-
+    if error == 1:
+        try:
+            os.remove(output_file)
+            os.rename(backup_source_xlsm, source_xlsm_path)
+            print(f"\n🔄 Returned files back.")
+        except Exception as exception_info_2:
+            print(f"\n❌ Error. Failed to return files back: {exception_info_2}")
 if __name__ == "__main__":
     main()
