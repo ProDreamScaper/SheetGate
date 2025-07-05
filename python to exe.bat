@@ -1,1 +1,2 @@
-pyinstaller --onefile script_excel_credentials.py
+pyinstaller --onefile script_excel_credentials_START.py
+pyinstaller --onefile script_excel_credentials_UPDATE.py

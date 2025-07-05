@@ -1,8 +1,23 @@
 import os
 import shutil
 import xlwings as xw
+from pathlib import Path
+
+def get_xlsm(message):
+    while True:
+        raw = input(message)
+        # 1. Remove leading/trailing whitespace and any surrounding single or double quotes
+        cleaned = raw.strip().strip('"').strip("'")
+        # 2. Build a pathlib.Path, expand ~, normalize separators, etc.
+        p = Path(cleaned).expanduser().resolve()
+        # 3. Validate extension and existence
+        if p.suffix.lower() == '.xlsm' and p.exists():
+            return str(p)
+        else:
+            print(f"❌ '{raw}' is not a valid .xlsm file. Please try again.")
 
 def main():
+    '''
     # Ask for XLSM template (the file to copy with macros)
     xlsm_template = input("Enter the path to the XLSM template file: ").strip()
     while not xlsm_template.lower().endswith('.xlsm') or not os.path.exists(xlsm_template):
@@ -12,7 +27,9 @@ def main():
     source_xlsm_path = input("Enter the path to the SOURCE XLSM file to import sheets from: ").strip()
     while not source_xlsm_path.lower().endswith('.xlsm') or not os.path.exists(source_xlsm_path):
         source_xlsm_path = input("Invalid SOURCE XLSM path. Try again: ").strip()
-
+    '''
+    xlsm_template = get_xlsm("Enter the path to the XLSM template file: ")
+    source_xlsm_path = get_xlsm("Enter the path to the SOURCE XLSM file to import sheets from: ")
 
     # Output XLSM file name based on SOURCE XLSM filename
     source_xlsm_name = os.path.splitext(os.path.basename(source_xlsm_path))[0]
